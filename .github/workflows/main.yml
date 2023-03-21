@@ -1,0 +1,22 @@
+include:
+  - remote: https://arp.to/@ci/docker.yml
+
+update-by-schedules:
+  only:
+    - schedules
+    - web
+  script:
+    - apk add git openssh-client ipcalc grep
+    - make
+
+update-by-changes:
+  only:
+    changes:
+      - "*.yml"
+      - "scripts/*.sh"
+  except:
+    - schedules
+    - web
+  script:
+    - apk add git openssh-client ipcalc grep
+    - make
